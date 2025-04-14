@@ -45,6 +45,9 @@ ordered_data_long <-
 
 # Visualization -----------------------------------------------------------
 
+ 
+  
+  
 p <- ordered_data_long |> 
   ggplot(
     aes(
@@ -55,22 +58,36 @@ p <- ordered_data_long |>
   ) +
   geom_bar(
     stat = "identity",
-    alpha = 0.65) +
+    alpha = 0.75) +
+  
   coord_flip() +
   geom_flag(
-    aes(country = nationality_for_flag), # Map nationality to country, convert to lowercase
+    aes(country = nationality_for_flag), 
     y = 0, 
     size = 6
   ) +
+  geom_text(aes(label = total,
+                y = total),
+            hjust = -1) +
+  
   theme_minimal() +
   labs(
     title = "Earnings For Top 20 Female Athletes",
-    caption = "Data from Forbes.com | Visuals: Vlad Mijatovic",
+    caption = "Data from Forbes.com | Visuals: Vlad Mijatović",
     y = "Millions USD",
     x = ""
   ) +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.x = element_blank(), 
+    axis.text = element_text(face = "bold"),
+    legend.position = "top",
+    legend.title = element_blank()
+  ) +
   scale_fill_manual(
-    values = c("darkorchid1", "darkorchid4")
+    values = c("darkorchid1", "darkorchid4"),
+    labels = c("Off Field", "On Field")
+
   ) +
   transition_reveal(total)
 
@@ -80,19 +97,12 @@ p
 
 
 animate(p, 
-        duration = 10, 
+        duration = 12, 
         fps = 20, 
         end_pause = 100,
-        width = 100, 
-        height = 100, 
+        width = 800, 
+        height = 600, 
         renderer = gifski_renderer("top_20_earnings.gif"))
 
 
-animate(p, 
-        duration = 10, 
-        fps = 20, 
-        end_pause = 100,
-        width = 100, 
-        height = 100, 
-        renderer = av_renderer("top_20_earnings.mp4"))
 
