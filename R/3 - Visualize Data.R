@@ -3,13 +3,18 @@
 library(tidyverse)
 library(ggflags)
 library(countrycode)
+library(gganimate)
 
 
 # load data
 
 top_20 <- read_rds("./data_processed/top_20.rds")
 
-# process data
+
+
+
+# Process Data ------------------------------------------------------------
+
 
 top_20 <- 
   top_20 |> 
@@ -18,6 +23,7 @@ top_20 <-
 top_20_ordered <- 
   top_20 |> 
   arrange(total) |> 
+  # add country codes (for drawing flags)
   mutate(
     nationality_for_flag = countrycode(nationality, 
                                        origin = 'country.name', 
@@ -28,39 +34,18 @@ top_20_ordered <-
   )
 
 
-ordered_data_long <- ordered_data_long %>%
-  mutate(
-    nationality_for_flag = countrycode,
-    nationality_for_flag = tolower(nationality_for_flag)
-  )
 
-# 2. Order the data frame by the total
-ordered_data <- data_with_total %>%
-  arrange(total)
-
-# 3. Convert the data to long format for stacking
+# convert to long 
 ordered_data_long <- 
   top_20_ordered |> 
   pivot_longer(
     cols = c(on_field, off_field), 
     names_to = "earnings", values_to = "millions")
 
-# 4. Create the ggplot
-ggplot(data_long, aes(x = factor(group, levels = ordered_data$group), 
-                      y = value, 
-                      fill = variable)) +
-  geom_bar(stat = "identity") +
-  labs(
-    title = "Stacked Bar Chart of Two Columns",
-    x = "Group",
-    y = "Total Value",
-    fill = "Column"
-  ) +
-  theme_minimal()
 
 # Visualization -----------------------------------------------------------
 
-ordered_data_long |> 
+p <- ordered_data_long |> 
   ggplot(
     aes(
       x = fct_reorder(name, total),
@@ -80,12 +65,34 @@ ordered_data_long |>
   theme_minimal() +
   labs(
     title = "Earnings For Top 20 Female Athletes",
+    caption = "Data from Forbes.com | Visuals: Vlad Mijatovic",
     y = "Millions USD",
     x = ""
   ) +
   scale_fill_manual(
     values = c("darkorchid1", "darkorchid4")
-  )
+  ) +
+  transition_reveal(total)
+
+p
+
+# Animate -----------------------------------------------------------------
 
 
+animate(p, 
+        duration = 10, 
+        fps = 20, 
+        end_pause = 100,
+        width = 100, 
+        height = 100, 
+        renderer = gifski_renderer("top_20_earnings.gif"))
+
+
+animate(p, 
+        duration = 10, 
+        fps = 20, 
+        end_pause = 100,
+        width = 100, 
+        height = 100, 
+        renderer = av_renderer("top_20_earnings.mp4"))
 
