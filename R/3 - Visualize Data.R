@@ -9,7 +9,7 @@ library(magick)
 
 # load data
 
-top_20 <- read_rds("./data_processed/top_20.rds")
+top_20 <- read_rds("./data_processed/top_20_clean.rds")
 
 img <- image_read("./images/female_tennis_player.png") 
 
@@ -67,7 +67,6 @@ p <- ordered_data_long |>
     y = 0, 
     size = 6
   ) +
-  +
   annotation_raster(raster = img,
                     xmin = 0, xmax = 14, 
                     ymin = 15, ymax = 30
