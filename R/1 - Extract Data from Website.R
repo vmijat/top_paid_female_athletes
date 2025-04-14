@@ -18,8 +18,5 @@ forbes_2024_webpage <-
 aa <- forbes_2024_webpage |> 
   html_elements("h2") 
 
-bb <- 
-  aa |> 
-  unlist()
 
 # TODO

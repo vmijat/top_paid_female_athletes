@@ -4,13 +4,14 @@ library(tidyverse)
 library(ggflags)
 library(countrycode)
 library(gganimate)
+library(magick)
 
 
 # load data
 
 top_20 <- read_rds("./data_processed/top_20.rds")
 
-
+img <- image_read("./images/female_tennis_player.png") 
 
 
 # Process Data ------------------------------------------------------------
@@ -66,6 +67,11 @@ p <- ordered_data_long |>
     y = 0, 
     size = 6
   ) +
+  +
+  annotation_raster(raster = img,
+                    xmin = 0, xmax = 14, 
+                    ymin = 15, ymax = 30
+  ) +
   geom_text(aes(label = total,
                 y = total),
             hjust = -1) +
@@ -89,7 +95,12 @@ p <- ordered_data_long |>
     labels = c("Off Field", "On Field")
 
   ) +
+  annotation_raster(raster = img,
+                    xmin = 0, xmax = 14, 
+                    ymin = 15, ymax = 30
+                    ) +
   transition_reveal(total)
+
 
 p
 
@@ -103,6 +114,8 @@ animate(p,
         width = 800, 
         height = 600, 
         renderer = gifski_renderer("top_20_earnings.gif"))
+
+
 
 
 
