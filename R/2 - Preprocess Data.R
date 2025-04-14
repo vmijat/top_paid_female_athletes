@@ -5,7 +5,10 @@ library(readxl)
 
 # load data
 
-top_20 <- readxl::read_xlsx("./data_raw/top_20_female_sports_players.xlsx") |> 
+# top_20 <- readxl::read_xlsx("./data_raw/top_20_female_sports_players.xlsx") |> 
+#   janitor::clean_names()
+
+top_20 <- read_rds("./data_processed/top_20.rds") |> 
   janitor::clean_names()
 
 
@@ -14,6 +17,7 @@ top_20 <- readxl::read_xlsx("./data_raw/top_20_female_sports_players.xlsx") |>
 
 top_20 <- 
   top_20 |> 
+  rename(raw_data = all_other_data) |> 
   # extract sport
   mutate(sport = str_extract(raw_data, "^Sport:.\\w+"),
          sport = str_extract(sport, "\\w+$")) |> 
@@ -43,7 +47,7 @@ top_20 <-
 
 
 top_20 |> 
-  saveRDS("./data_processed/top_20.rds")
+  saveRDS("./data_processed/top_20_clean.rds")
 
 
 
