@@ -1,6 +1,8 @@
 # load libraries
 
 library(tidyverse)
+library(ggflags)
+library(countrycode)
 
 
 # load data
@@ -15,7 +17,22 @@ top_20 <-
 
 top_20_ordered <- 
   top_20 |> 
-  arrange(total)
+  arrange(total) |> 
+  mutate(
+    nationality_for_flag = countrycode(nationality, 
+                                       origin = 'country.name', 
+                                       destination = 'iso2c', 
+                                       warn = FALSE) ,
+    nationality_for_flag = str_to_lower(nationality_for_flag)
+                                       
+  )
+
+
+ordered_data_long <- ordered_data_long %>%
+  mutate(
+    nationality_for_flag = countrycode,
+    nationality_for_flag = tolower(nationality_for_flag)
+  )
 
 # 2. Order the data frame by the total
 ordered_data <- data_with_total %>%
@@ -51,6 +68,24 @@ ordered_data_long |>
       fill = earnings
     )
   ) +
-  geom_bar(stat = "identity") +
-  coord_flip()
+  geom_bar(
+    stat = "identity",
+    alpha = 0.65) +
+  coord_flip() +
+  geom_flag(
+    aes(country = nationality_for_flag), # Map nationality to country, convert to lowercase
+    y = 0, 
+    size = 6
+  ) +
+  theme_minimal() +
+  labs(
+    title = "Earnings For Top 20 Female Athletes",
+    y = "Millions USD",
+    x = ""
+  ) +
+  scale_fill_manual(
+    values = c("darkorchid1", "darkorchid4")
+  )
+
+
 
