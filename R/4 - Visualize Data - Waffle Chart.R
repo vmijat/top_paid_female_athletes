@@ -83,12 +83,12 @@ p <- top_20 |>
                                 hjust=.5,
                                 margin=margin(20,0,0,0))
     
-  ) +
-  labs(
-    title = "Earnings of Top 20 Female Athletes",
-    subtitle = "in 2024",
-    caption = "Every Box represents $1M | Visual: Vlad Mijatovic"
-  )
+  ) #+
+  # labs(
+  #   title = "Earnings of Top 20 Female Athletes",
+  #   subtitle = "in 2024",
+  #   caption = "Every Box represents $1M | Visual: Vlad Mijatovic"
+  # )
 
 
 # save
@@ -176,12 +176,12 @@ christiano_df |>
                                 color="grey40",
                                 hjust=.5,
                                 margin=margin(20,0,0,0))
-  ) +
-  labs(
-    title = "Earnings of Christiano Ronaldo",
-    subtitle = "in 2024"
-  )
-  
+  ) #+
+  # labs(
+  #   title = "Earnings of Christiano Ronaldo",
+  #   subtitle = "in 2024"
+  # )
+  # 
 
 
 
