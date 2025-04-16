@@ -24,8 +24,8 @@ top_20 <-
 # Define fonts and texts --------------------------------------------------
 
 
-font_add_google("Outfit", "title_font")
-font_add_google("Cabin", "body_font")
+font_add_google("Kanit", "title_font")
+font_add_google("Roboto", "body_font")
 showtext_auto()
 
 title_font <- "title_font"
@@ -167,43 +167,6 @@ christiano_df |>
   
 
 
-
-
-
-  labs(title = title_text,
-       subtitle = subtitle_text,
-       caption = caption_text)+
-  theme_minimal()+
-  theme(
-    axis.title = element_blank(),
-    axis.text.x = element_text(family = body_font, size=12),
-    axis.text.y = element_text(family = body_font, size=12),
-
-    
-    # TITLE
-    plot.title.position = "plot",
-    plot.title = element_textbox(margin = margin(20, 0, 10, 0),
-                                 size = 30,
-                                 family = title_font,
-                                 face = "bold",
-                                 width = unit(55, "lines")),
-    
-    # SUB-TITLE
-    plot.subtitle = element_text(margin = margin(10, 0, 20, 0),
-                                 size = 16,
-                                 family = body_font,
-                                 color = "grey15"),
-    # Caption
-    plot.caption = element_text(family=body_font,
-                                face="plain",
-                                size=14, 
-                                color="grey40",
-                                hjust=.5,
-                                margin=margin(20,0,0,0)),
-    
-    plot.background = element_rect(color="white", fill="white"),
-    plot.margin = margin(20, 40, 20, 40)
-  )
 
 showtext_opts(dpi = 320)
 
