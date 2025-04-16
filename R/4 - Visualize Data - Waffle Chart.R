@@ -34,7 +34,7 @@ body_font <- "body_font"
 
 #  Create the dataset and plot
 
-top_20 |> 
+p <- top_20 |> 
   mutate(name = fct_reorder(name, 
                             total_earning, 
                             desc)) |> 
@@ -64,8 +64,8 @@ top_20 |>
     
     # TITLE
     plot.title.position = "plot",
-    plot.title = element_textbox(margin = margin(10, 0, 10, 0),
-                                 size = 30,
+    plot.title = element_textbox(margin = margin(0, 0, 0, 0),
+                                 size = 26,
                                  family = title_font,
                                  face = "bold",
                                  width = unit(40, "lines")),
@@ -82,6 +82,7 @@ top_20 |>
                                 color="grey40",
                                 hjust=.5,
                                 margin=margin(20,0,0,0))
+    
   ) +
   labs(
     title = "Earnings of Top 20 Female Athletes",
@@ -89,6 +90,22 @@ top_20 |>
     caption = "Every Box represents $1M | Visual: Vlad Mijatovic"
   )
 
+
+# save
+
+# Print plot to screen 
+print(p)
+
+ggsave(
+  "images/waffle_top_20_female.png",
+  plot = p,
+  dpi=320, 
+  width = 12, 
+  height = 7,
+  bg = "white"
+)
+
+showtext_auto(FALSE)
 
 
 
