@@ -36,8 +36,9 @@ body_font <- "body_font"
 
 p <- top_20 |> 
   mutate(name = fct_reorder(name, 
-                            total_earning, 
-                            desc)) |> 
+                            total_earning#, 
+                            #desc
+                            )) |> 
   ggplot(aes(
     fill = name, 
     values = total_earning
@@ -46,8 +47,8 @@ p <- top_20 |>
               size = .25, 
               n_rows = 10, 
               flip = TRUE) +
-  facet_wrap(~ name, 
-             nrow = 10, 
+  facet_wrap(~ name,
+             nrow = 10,
              strip.position = "bottom") +
   scale_x_discrete() + 
   scale_y_continuous(labels = function(x) x * 10, # make this multiplyer the same as n_rows
