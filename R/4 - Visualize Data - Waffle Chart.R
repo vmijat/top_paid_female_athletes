@@ -85,13 +85,15 @@ top_20 |>
   ) +
   labs(
     title = "Earnings of Top 20 Female Athletes",
-    subtitle = "in 2024"
+    subtitle = "in 2024",
+    caption = "Every Box represents $1M | Visual: Vlad Mijatovic"
   )
 
 
 
 
-# Make Plot for Christiano Ronaldo ----------------------------------------
+# Make dataframe for Christiano Ronaldo ----------------------------------------
+# very simple - his total earnings in 2024 were $260M USD
 
 
 christiano_df <- 
@@ -204,6 +206,12 @@ christiano_df |>
   )
 
 showtext_opts(dpi = 320)
+
+
+
+# Save Plot ---------------------------------------------------------------
+
+
 ggsave(
   "img/graph/web-waffle-for-time-evolution.png",
   dpi=320, width = 12, height = 9
