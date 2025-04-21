@@ -7,11 +7,13 @@ library(gganimate)
 library(magick)
 
 
-# load data
+# load processed data
 
 top_20 <- read_rds("./data_processed/top_20_clean.rds")
 
+# image created with gemini 
 img <- image_read("./images/female_tennis_player.png") 
+
 
 
 # Process Data ------------------------------------------------------------
@@ -36,12 +38,17 @@ top_20_ordered <-
 
 
 
-# convert to long 
+# convert to long format
 ordered_data_long <- 
   top_20_ordered |> 
   pivot_longer(
-    cols = c(on_field, off_field), 
-    names_to = "earnings", values_to = "millions")
+    cols = c(
+      on_field, 
+      off_field
+      ), 
+    names_to = "earnings", 
+    values_to = "millions"
+    )
 
 
 # Visualization -----------------------------------------------------------
